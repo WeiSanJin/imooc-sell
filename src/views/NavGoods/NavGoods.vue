@@ -2,8 +2,10 @@
 	<div class="goods">
 		<div class="menu-wrapper">
 			<ul>
-				<li class="menu-item" v-for="(item,index) in goods" :key="index"
-					:class="{'current':currentIndex===index}" @click="selectMenu(index, $event)">
+				<li class="menu-item"
+					v-for="(item,index) in goods" :key="index"
+					:class="{'current':currentIndex===index}"
+					@click="selectMenu(index, $event)">
 					<span class="text border-1px">
 						<span class="icon" v-show="item.type>0" :class="classMap[item.type]"></span>{{item.name}}
 					</span>
@@ -12,10 +14,13 @@
 		</div>
 		<div class="foods-wrapper" ref='foodsWrapper'>
 			<ul>
-				<li class="food-list food-list-hook" v-for="(item,index) in goods" :key="index" >
+				<li class="food-list food-list-hook"
+					v-for="(item,index) in goods" :key="index" >
 					<h1 class="title">{{item.name}}</h1>
 					<ul>
-						<li class="food-item border-1px" v-for="(food,index) in item.foods" :key="index">
+						<li class="food-item border-1px"
+							v-for="(food,index) in item.foods" :key="index"
+							@click="selectFood(food,$event)">
 							<div class="icon">
 								<img width="57" height="57" :src="food.icon">
 							</div>
@@ -45,8 +50,12 @@
 			:select-foods="selectFoods"
 			:delivery-price="seller.deliveryPrice"
 			:min-price="seller.minPrice"
-		>
-		</nav-shopcart>
+		></nav-shopcart>
+		<!-- 商品详情页组件 -->
+		<nav-food
+			ref="food"
+			:food="selectedFood"
+		></nav-food>
 	</div>
 </template>
 
@@ -54,12 +63,14 @@
 	import BScroll from 'better-scroll';
 	import NavShopcart from '../../components/NavShopcart/NavShopcart.vue';
 	import NavCartcontrol from '@/components/NavCartcontrol/NavCartcontrol.vue';
+	import NavFood from '@/components/NavFood/NavFood.vue';
 	const ERR_OK = 0;
 	export default {
 		name: 'NavGoods',
 		components: {
 			NavShopcart,
-			NavCartcontrol
+			NavCartcontrol,
+			NavFood
 		},
 		props: {
 			seller: {}
@@ -68,7 +79,8 @@
 			return {
 				goods: [],
 				listHeight: [],
-				scrollY: 0
+				scrollY: 0,
+				selectedFood: {}
 			};
 		},
 		computed: {
@@ -120,6 +132,15 @@
 				// scrollToElement作用：滚动到指定的目标元素。
 				this.foodScroll.scrollToElement(el, 300);
 				// console.log(index);
+			},
+			selectFood(food, event) { // 获取当前点击的商品信息
+				if (!event._constructed) {
+					return;
+				}
+				// 将商品当前点击的商品信息传给子组件
+				this.selectedFood = food;
+				// 调用子组件show方法
+				this.$refs.food.show();
 			},
 			cartAdd(el) {
 				// 体验优化，异步执行下落动画

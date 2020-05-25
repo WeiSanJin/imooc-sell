@@ -2,12 +2,12 @@
 	<div class="cartcontrol">
 		<!-- 商品减少按钮增加一个滚动动画 -->
 		<transition name="move">
-			<div class="cart-decrease" v-show="food.count>0" @click="decreaseCart">
+			<div class="cart-decrease" v-show="food.count>0" @click.stop.prevent="decreaseCart">
 				<span class="inner icon-remove_circle_outline"></span>
 			</div>
 		</transition>
 		<div class="cart-count" v-show="food.count>0">{{food.count}}</div>
-		<div class="cart-add icon-add_circle" @click="addCart"></div>
+		<div class="cart-add icon-add_circle" @click.stop.prevent="addCart"></div>
 	</div>
 </template>
 
@@ -37,7 +37,7 @@
 				} else {
 					this.food.count++;
 				}
-				// 添加这句，提交'cart-add'事情给父组件，第二个是要传递的参数
+				// 添加这句，提交'cart-add'事件给父组件，第二个是要传递的参数
 				this.$emit('cart-add', event.target);
 			},
 			decreaseCart(event) {
