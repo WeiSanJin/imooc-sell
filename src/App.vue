@@ -12,12 +12,15 @@
 				<router-link to='/seller'>商家</router-link>
 			</div>
 		</div>
-		<router-view :seller="seller"></router-view>
+		<keep-alive>
+			<router-view :seller="seller"></router-view>
+		</keep-alive>
 	</div>
 </template>
 
 <script>
 	import NavHeader from './components/NavHeader/NavHeader.vue';
+	import { urlParse } from 'common/js/util.js';
 	const ERR_OK = 0;
 	export default {
 		components: {
@@ -25,11 +28,16 @@
 		},
 		data() {
 			return {
-				seller: {}
+				seller: {
+					id: (() => {
+						let queryParam = urlParse();
+						return queryParam.id;
+					})()
+				}
 			};
 		},
 		created() {
-			this.$http.get('/api/seller').then((response) => {
+			this.$http.get('/api/seller?id=' + this.seller.id).then((response) => {
 				response = response.body;
 				if (response.errno === ERR_OK) {
 					this.seller = response.data;

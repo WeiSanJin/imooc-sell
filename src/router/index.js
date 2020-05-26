@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import goods from '../views/goods/goods.vue';
 import ratings from '../views/ratings/ratings.vue';
-import NavSeller from '../views/NavSeller/NavSeller.vue';
+import seller from '../views/seller/seller.vue';
 
 Vue.use(Router);
 
@@ -17,7 +17,7 @@ export default new Router({
 		},
 		{
 			path: '/seller',
-			component: NavSeller
+			component: seller
 		},
 		{
 			path: '/',
