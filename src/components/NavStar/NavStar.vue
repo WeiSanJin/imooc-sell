@@ -1,12 +1,6 @@
 <template>
 	<div class="star" :class="starType">
-		<span class="star-test">
-			<slot name="left-test"></slot>
-		</span>
 		<span v-for="(item,index) in itemClasses" :key="index" :class="itemClasses[index]" class="star-item"></span>
-		<span class="star-grade">
-			<slot name="grade"></slot>
-		</span>
 	</div>
 </template>
 
@@ -62,14 +56,6 @@
 		.star-item
 			display :inline-block
 			background-repeat :no-repeat
-		.star-grade
-			margin-top :10px
-			font-size :22px
-			color :firebrick
-		.star-test
-			font-size: 22px
-			margin-right: 19px
-			margin-left: 30px
 		&.star-48
 			.star-item
 				width :20px
@@ -88,7 +74,7 @@
 			.star-item
 				width :15px
 				height :15px
-				margin-right :16px
+				margin-right :6px
 				background-size :15px 15px
 				&:last-child
 					margin-right :0

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import NavGoods from '../views/NavGoods/NavGoods.vue';
-import NavRatings from '../views/NavRatings/NavRatings.vue';
+import goods from '../views/goods/goods.vue';
+import ratings from '../views/ratings/ratings.vue';
 import NavSeller from '../views/NavSeller/NavSeller.vue';
 
 Vue.use(Router);
@@ -9,11 +9,11 @@ Vue.use(Router);
 export default new Router({
 	routes: [{
 			path: '/goods',
-			component: NavGoods
+			component: goods
 		},
 		{
 			path: '/ratings',
-			component: NavRatings
+			component: ratings
 		},
 		{
 			path: '/seller',
@@ -21,7 +21,7 @@ export default new Router({
 		},
 		{
 			path: '/',
-			component: NavGoods
+			component: goods
 		}
 	],
 	linkActiveClass: 'active'
